@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dental Insurance Automation — ROI Calculator</title>
+<style>
+  :root {
+    --accent: #2563eb;
+    --accent-light: #dbeafe;
+    --text: #1a1a2e;
+    --text-muted: #6b7280;
+    --text-faint: #9ca3af;
+    --card-bg: #ffffff;
+    --border: #e5e7eb;
+    --negative: #ef4444;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--text);
+    background: #f8f9fb;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 32px 20px 60px;
+  }
+
+  h1 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border-radius: 14px;
+    padding: 24px 22px;
+    border: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+
+  .card-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+
+  /* Sliders */
+  .slider-group { margin-bottom: 28px; }
+  .slider-group:last-child { margin-bottom: 0; }
+
+  .slider-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+  }
+
+  .slider-label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.02em;
+  }
+
+  .slider-value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+  }
+
+  .slider-hint {
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--accent);
+    height: 6px;
+    cursor: pointer;
+  }
+
+  .slider-bounds {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+    color: var(--text-faint);
+    margin-top: 2px;
+  }
+
+  /* Result cards row */
+  .results-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .result-card {
+    border-radius: 12px;
+    padding: 20px 18px;
+    flex: 1;
+    min-width: 160px;
+  }
+
+  .result-card.accent {
+    background: var(--accent);
+  }
+
+  .result-card.neutral {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+  }
+
+  .result-card .rc-label {
+    font-size: 11.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 8px;
+  }
+
+  .result-card.accent .rc-label { color: rgba(255,255,255,0.8); }
+  .result-card.neutral .rc-label { color: var(--text-muted); }
+
+  .result-card .rc-value {
+    font-size: 28px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    line-height: 1.1;
+  }
+
+  .result-card.accent .rc-value { color: #fff; }
+  .result-card.neutral .rc-value { color: var(--text); }
+
+  .result-card .rc-sub {
+    font-size: 12px;
+    margin-top: 6px;
+    line-height: 1.4;
+  }
+
+  .result-card.accent .rc-sub { color: rgba(255,255,255,0.7); }
+  .result-card.neutral .rc-sub { color: var(--text-muted); }
+
+  /* Breakdown */
+  .breakdown-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .breakdown-row:last-of-type { border-bottom: none; }
+
+  .br-label {
+    flex: 1;
+    font-size: 13.5px;
+    color: var(--text);
+  }
+
+  .br-bar-track {
+    width: 100px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .br-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .br-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent);
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    min-width: 100px;
+    text-align: right;
+  }
+
+  .net-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 14px;
+  }
+
+  .net-label {
+    font-size: 13.5px;
+    font-weight: 700;
+  }
+
+  .net-value {
+    font-size: 20px;
+    font-weight: 800;
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+  }
+
+  .pitch-box {
+    margin-top: 24px;
+    padding: 18px 20px;
+    background: var(--accent-light);
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--text);
+  }
+
+  .pitch-box strong { display: block; margin-bottom: 4px; }
+
+  @media (max-width: 520px) {
+    .results-row { flex-direction: column; }
+    .result-card { min-width: unset; }
+    .br-bar-track { width: 60px; }
+    .br-value { min-width: 80px; font-size: 13px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Dental Insurance Automation</h1>
+  <p class="subtitle">Plug in the practice's real numbers to see what automation is worth.</p>
+
+  <!-- Practice Numbers -->
+  <div class="card">
+    <div class="card-label">Practice Numbers</div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Claims per month</span>
+        <span class="slider-value" id="v-claims">400</span>
+      </div>
+      <div class="slider-hint">Total insurance claims submitted monthly</div>
+      <input type="range" id="claims" min="50" max="1500" step="25" value="400" oninput="update()">
+      <div class="slider-bounds"><span>50</span><span>1,500</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Average claim value</span>
+        <span class="slider-value" id="v-avgclaim">$300</span>
+      </div>
+      <div class="slider-hint">Average reimbursement per claim</div>
+      <input type="range" id="avgclaim" min="50" max="800" step="25" value="300" oninput="update()">
+      <div class="slider-bounds"><span>$50</span><span>$800</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Current denial rate</span>
+        <span class="slider-value" id="v-denial">8%</span>
+      </div>
+      <div class="slider-hint">Industry average is 5–10%</div>
+      <input type="range" id="denial" min="1" max="25" step="0.5" value="8" oninput="update()">
+      <div class="slider-bounds"><span>1%</span><span>25%</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Hours/day on insurance work</span>
+        <span class="slider-value" id="v-hours">4h</span>
+      </div>
+      <div class="slider-hint">Total staff time: calls, portals, claims, follow-ups</div>
+      <input type="range" id="hours" min="1" max="8" step="0.5" value="4" oninput="update()">
+      <div class="slider-bounds"><span>1h</span><span>8h</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Staff hourly rate</span>
+        <span class="slider-value" id="v-rate">$22</span>
+      </div>
+      <div class="slider-hint">Insurance coordinator loaded rate</div>
+      <input type="range" id="rate" min="14" max="40" step="1" value="22" oninput="update()">
+      <div class="slider-bounds"><span>$14</span><span>$40</span></div>
+    </div>
+  </div>
+
+  <!-- Automation Assumptions -->
+  <div class="card">
+    <div class="card-label">Automation Assumptions</div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Denial reduction</span>
+        <span class="slider-value" id="v-denred">40%</span>
+      </div>
+      <div class="slider-hint">Conservative: 20–30%. Aggressive: 50%+</div>
+      <input type="range" id="denred" min="10" max="70" step="5" value="40" oninput="update()">
+      <div class="slider-bounds"><span>10%</span><span>70%</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Time reduction</span>
+        <span class="slider-value" id="v-timered">50%</span>
+      </div>
+      <div class="slider-hint">How much manual insurance work gets automated</div>
+      <input type="range" id="timered" min="10" max="70" step="5" value="50" oninput="update()">
+      <div class="slider-bounds"><span>10%</span><span>70%</span></div>
+    </div>
+
+    <div class="slider-group">
+      <div class="slider-header">
+        <span class="slider-label">Monthly infrastructure cost</span>
+        <span class="slider-value" id="v-infra">$200</span>
+      </div>
+      <div class="slider-hint">Cloud hosting, API costs, clearinghouse fees</div>
+      <input type="range" id="infra" min="50" max="500" step="25" value="200" oninput="update()">
+      <div class="slider-bounds"><span>$50</span><span>$500</span></div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="results-row">
+    <div class="result-card accent">
+      <div class="rc-label">Net monthly value</div>
+      <div class="rc-value" id="r-net">—</div>
+      <div class="rc-sub" id="r-annual">—</div>
+    </div>
+    <div class="result-card neutral">
+      <div class="rc-label">ROI multiple</div>
+      <div class="rc-value" id="r-roi">—</div>
+      <div class="rc-sub" id="r-roi-sub">—</div>
+    </div>
+    <div class="result-card neutral">
+      <div class="rc-label">Hours saved</div>
+      <div class="rc-value" id="r-hours">—</div>
+      <div class="rc-sub">Per month of staff time freed up</div>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="card">
+    <div class="card-label">Where the value comes from</div>
+
+    <div class="breakdown-row">
+      <span class="br-label">Recovered denied revenue</span>
+      <div class="br-bar-track"><div class="br-bar-fill" id="bar-rev"></div></div>
+      <span class="br-value" id="br-rev">—</span>
+    </div>
+    <div class="breakdown-row">
+      <span class="br-label">Labor time savings</span>
+      <div class="br-bar-track"><div class="br-bar-fill" id="bar-labor"></div></div>
+      <span class="br-value" id="br-labor">—</span>
+    </div>
+    <div class="breakdown-row" style="border-bottom:none">
+      <span class="br-label">Infrastructure cost</span>
+      <div class="br-bar-track"><div class="br-bar-fill" id="bar-cost"></div></div>
+      <span class="br-value" id="br-cost">—</span>
+    </div>
+
+    <div class="net-row">
+      <span class="net-label">Monthly net</span>
+      <span class="net-value" id="net-total">—</span>
+    </div>
+  </div>
+
+  <!-- Pitch -->
+  <div class="pitch-box">
+    <strong>Your pitch with these numbers:</strong>
+    <span id="pitch-text"></span>
+  </div>
+</div>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
+  const fmtD = (n) => '$' + fmt(n);
+
+  function update() {
+    const claims    = +$('claims').value;
+    const avgclaim  = +$('avgclaim').value;
+    const denial    = +$('denial').value;
+    const hours     = +$('hours').value;
+    const rate      = +$('rate').value;
+    const denred    = +$('denred').value;
+    const timered   = +$('timered').value;
+    const infra     = +$('infra').value;
+    const days      = 21;
+
+    // Display slider values
+    $('v-claims').textContent  = fmt(claims);
+    $('v-avgclaim').textContent = fmtD(avgclaim);
+    $('v-denial').textContent  = denial + '%';
+    $('v-hours').textContent   = hours + 'h';
+    $('v-rate').textContent    = fmtD(rate);
+    $('v-denred').textContent  = denred + '%';
+    $('v-timered').textContent = timered + '%';
+    $('v-infra').textContent   = fmtD(infra);
+
+    // Math
+    const monthlyDeniedRev  = claims * (denial / 100) * avgclaim;
+    const recoveredRev      = monthlyDeniedRev * (denred / 100);
+    const monthlyLabor      = hours * rate * days;
+    const laborSaved        = monthlyLabor * (timered / 100);
+    const hoursSaved        = hours * days * (timered / 100);
+    const totalValue        = recoveredRev + laborSaved;
+    const netMonthly        = totalValue - infra;
+    const annualNet         = netMonthly * 12;
+    const roiX              = infra > 0 ? totalValue / infra : 0;
+    const maxBar            = Math.max(recoveredRev, laborSaved, 1);
+
+    // Result cards
+    $('r-net').textContent     = fmtD(netMonthly);
+    $('r-annual').textContent  = fmtD(annualNet) + '/year after costs';
+    $('r-roi').textContent     = roiX.toFixed(1) + 'x';
+    $('r-roi-sub').textContent = 'Every $1 spent returns ' + fmtD(roiX);
+    $('r-hours').textContent   = fmt(hoursSaved) + 'h';
+
+    // Breakdown
+    $('br-rev').textContent   = fmtD(recoveredRev) + '/mo';
+    $('br-labor').textContent = fmtD(laborSaved) + '/mo';
+    $('br-cost').textContent  = '−' + fmtD(infra) + '/mo';
+
+    $('bar-rev').style.width   = (recoveredRev / maxBar * 100) + '%';
+    $('bar-labor').style.width = (laborSaved / maxBar * 100) + '%';
+    $('bar-cost').style.width  = (infra / maxBar * 100) + '%';
+
+    // Net color
+    $('net-total').textContent = fmtD(netMonthly);
+    $('net-total').style.color = netMonthly >= 0 ? 'var(--accent)' : 'var(--negative)';
+
+    // Pitch
+    $('pitch-text').textContent =
+      `"Right now the practice loses roughly ${fmtD(monthlyDeniedRev)}/month in denied claims, ` +
+      `and spends ${fmtD(monthlyLabor)}/month in staff time on insurance work. ` +
+      `I can cut those by ${denred}% and ${timered}% respectively for ${fmtD(infra)}/month ` +
+      `in operating costs — a net gain of ${fmtD(netMonthly)} every month."`;
+  }
+
+  update();
+</script>
+</body>
+</html>
