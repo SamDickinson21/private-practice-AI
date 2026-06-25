@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eligibility Automation — Project Roadmap</title>
+<style>
+  :root {
+    --navy: #1e293b;
+    --slate: #475569;
+    --muted: #64748b;
+    --teal: #0d9488;
+    --teal-light: #ccfbf1;
+    --teal-dark: #0f766e;
+    --bg: #f8fafb;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --amber: #f59e0b;
+    --amber-light: #fef3c7;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: var(--navy);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: var(--navy);
+    color: #fff;
+    padding: 48px 24px;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .header-inner h1 {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .header-inner .tagline {
+    font-size: 16px;
+    color: #94a3b8;
+    line-height: 1.5;
+    max-width: 540px;
+  }
+
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .header-meta-item {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #94a3b8;
+  }
+
+  .header-meta-item span {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: normal;
+    text-transform: none;
+    margin-top: 2px;
+  }
+
+  /* Main */
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* Summary */
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 40px;
+  }
+
+  .summary h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .summary p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  .summary p + p {
+    margin-top: 12px;
+  }
+
+  /* Phase timeline */
+  .phase {
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 40px;
+  }
+
+  .phase::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 32px;
+    bottom: -40px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .phase:last-of-type::before {
+    display: none;
+  }
+
+  .phase-dot {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .phase-header {
+    margin-bottom: 14px;
+  }
+
+  .phase-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+
+  .phase-header .timeline {
+    font-size: 13px;
+    color: var(--teal-dark);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .phase-body {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .phase-body p {
+    font-size: 14.5px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .phase-body p + p {
+    margin-top: 10px;
+  }
+
+  .phase-section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .phase-section-label:first-child {
+    margin-top: 0;
+  }
+
+  .phase-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .phase-list li {
+    font-size: 14px;
+    color: var(--slate);
+    padding: 5px 0;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .phase-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    border: 2px solid var(--teal);
+  }
+
+  .deliverable-list li::before {
+    background: var(--amber-light);
+    border-color: var(--amber);
+  }
+
+  /* What we need from you */
+  .needs-card {
+    background: var(--teal-light);
+    border: 1px solid #99f6e4;
+    border-radius: 10px;
+    padding: 22px 22px;
+    margin-top: 16px;
+  }
+
+  .needs-card .phase-section-label {
+    color: var(--teal-dark);
+  }
+
+  .needs-card li {
+    color: var(--navy);
+  }
+
+  .needs-card li::before {
+    background: #fff;
+    border-color: var(--teal-dark);
+  }
+
+  /* Approach box */
+  .approach {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-top: 48px;
+  }
+
+  .approach h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .approach p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  .approach p + p {
+    margin-top: 12px;
+  }
+
+  .principles {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .principle {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .principle-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+
+  .principle-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Footer */
+  .footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 540px) {
+    .header { padding: 36px 20px; }
+    .header-inner h1 { font-size: 22px; }
+    .header-meta { gap: 20px; }
+    .main { padding: 28px 16px 60px; }
+    .principles { grid-template-columns: 1fr; }
+    .phase { padding-left: 32px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Patient Eligibility Automation</h1>
+    <p class="tagline">A phased plan to automate insurance eligibility verification — built around your existing Eaglesoft and Vyne Trellis workflow.</p>
+    <div class="header-meta">
+      <div class="header-meta-item">Prepared by<span>Sam Dickinson</span></div>
+      <div class="header-meta-item">Timeline<span>~14 Weeks</span></div>
+      <div class="header-meta-item">Starting focus<span>Eligibility Verification</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="summary">
+    <h2>The Problem We're Solving</h2>
+    <p>Your team manually checks patient insurance eligibility before appointments — logging into portals, calling carriers, verifying coverage details. This takes hours every day, and when the information is wrong, it creates downstream problems: surprise patient bills, denied claims, and rework.</p>
+    <p>This project automates that process. The system will pull your upcoming appointments from Eaglesoft, automatically verify each patient's eligibility through your existing insurance connections, and surface the results for your team — flagging anything that needs human attention. Your staff stops doing data entry and starts reviewing data.</p>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase">
+    <div class="phase-dot">1</div>
+    <div class="phase-header">
+      <h3>Discovery & Observation</h3>
+      <div class="timeline">Weeks 1–2</div>
+    </div>
+    <div class="phase-body">
+      <p>Before building anything, I need to understand exactly how eligibility works in your office today — not how it's supposed to work, but how it actually works. I'll sit with your insurance coordinator, watch the process end-to-end, and document every step.</p>
+
+      <div class="phase-section-label">What I'll be mapping</div>
+      <ul class="phase-list">
+        <li>The full workflow from appointment booking to eligibility confirmation</li>
+        <li>Which insurance carriers make up the majority of your patients</li>
+        <li>Where time is spent and where errors typically occur</li>
+        <li>How Eaglesoft and Vyne Trellis are currently used in the process</li>
+        <li>Baseline measurements: time per day on eligibility, current accuracy</li>
+      </ul>
+
+      <div class="needs-card">
+        <div class="phase-section-label">What I'll need from your team</div>
+        <ul class="phase-list">
+          <li>Access to shadow the person who handles eligibility for a half day</li>
+          <li>Eaglesoft version number and server access details</li>
+          <li>Current Vyne Trellis tier and feature information</li>
+          <li>A signed Business Associate Agreement — <a href="baa-template.docx" download style="color: var(--teal-dark); font-weight: 600; text-decoration: underline;">download template here</a></li>
+        </ul>
+      </div>
+
+      <div class="phase-section-label">You'll receive</div>
+      <ul class="phase-list deliverable-list">
+        <li>A written map of your current eligibility workflow</li>
+        <li>Time audit showing where hours are spent</li>
+        <li>A clear technical plan for the automation build</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase">
+    <div class="phase-dot">2</div>
+    <div class="phase-header">
+      <h3>Technical Setup & Validation</h3>
+      <div class="timeline">Weeks 2–4</div>
+    </div>
+    <div class="phase-body">
+      <p>I'll connect to your Eaglesoft system and eligibility data source to confirm everything works before building the full solution. This is the "measure twice, cut once" phase — making sure the data flows correctly and the integration is solid.</p>
+
+      <div class="phase-section-label">What's happening</div>
+      <ul class="phase-list">
+        <li>Setting up a secure connection to your Eaglesoft server</li>
+        <li>Testing that I can pull appointment schedules and patient insurance data</li>
+        <li>Connecting to the eligibility verification API and validating response quality</li>
+        <li>Setting up HIPAA-compliant cloud infrastructure with proper encryption</li>
+        <li>Identifying any technical constraints and resolving them early</li>
+      </ul>
+
+      <div class="needs-card">
+        <div class="phase-section-label">What I'll need from your team</div>
+        <ul class="phase-list">
+          <li>Admin access or coordination with your IT provider for Eaglesoft server access</li>
+          <li>Remote access setup (VPN or similar) so I can work without being onsite daily</li>
+        </ul>
+      </div>
+
+      <div class="phase-section-label">You'll receive</div>
+      <ul class="phase-list deliverable-list">
+        <li>Confirmation that the integration works with your specific setup</li>
+        <li>Architecture overview showing how data flows securely between systems</li>
+        <li>Monthly infrastructure cost estimate</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase">
+    <div class="phase-dot">3</div>
+    <div class="phase-header">
+      <h3>Build the Core System</h3>
+      <div class="timeline">Weeks 4–8</div>
+    </div>
+    <div class="phase-body">
+      <p>This is where the automation gets built. The first version focuses on doing one thing well: checking tomorrow's patients automatically and giving your team a clear view of who's verified and who needs attention.</p>
+
+      <div class="phase-section-label">What the system will do</div>
+      <ul class="phase-list">
+        <li>Pull the next day's appointment list from Eaglesoft automatically each evening</li>
+        <li>Check insurance eligibility for every scheduled patient</li>
+        <li>Parse the response: active/inactive, plan type, deductibles, maximums, co-pay percentages</li>
+        <li>Flag incomplete or problematic responses for manual follow-up</li>
+        <li>Display results on a simple dashboard — green (verified), yellow (review needed), red (problem)</li>
+      </ul>
+
+      <div class="phase-section-label">What it won't do yet</div>
+      <ul class="phase-list">
+        <li>Real-time checks at the moment of booking (that comes later)</li>
+        <li>Submitting claims or modifying any data in Eaglesoft</li>
+        <li>Replacing human judgment — staff always has final say</li>
+      </ul>
+
+      <div class="phase-section-label">You'll receive</div>
+      <ul class="phase-list deliverable-list">
+        <li>A working system that checks eligibility for tomorrow's patients</li>
+        <li>A staff-facing dashboard showing results at a glance</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase">
+    <div class="phase-dot">4</div>
+    <div class="phase-header">
+      <h3>Parallel Testing</h3>
+      <div class="timeline">Weeks 8–10</div>
+    </div>
+    <div class="phase-body">
+      <p>This is the phase that addresses the accuracy question directly. For two weeks, the automated system runs alongside your existing manual process. Staff keeps checking eligibility as they normally would, and we compare the automated results against their findings every day.</p>
+
+      <div class="phase-section-label">How it works</div>
+      <ul class="phase-list">
+        <li>The system checks eligibility automatically — staff checks manually as usual</li>
+        <li>Results are compared daily to identify any discrepancies</li>
+        <li>Every mismatch gets investigated: was the system wrong, or was the manual check wrong?</li>
+        <li>Edge cases are fixed as they surface</li>
+      </ul>
+
+      <p style="margin-top: 14px;">This is zero risk to the practice. Nothing changes about your current process — we're just running the new system in parallel to prove it works. If the accuracy isn't there, we fix it before anyone relies on it.</p>
+
+      <div class="phase-section-label">You'll receive</div>
+      <ul class="phase-list deliverable-list">
+        <li>An accuracy report showing match rate over the testing period</li>
+        <li>Documentation of any edge cases found and how they were resolved</li>
+        <li>A clear recommendation on whether the system is ready for daily use</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase">
+    <div class="phase-dot">5</div>
+    <div class="phase-header">
+      <h3>Go Live</h3>
+      <div class="timeline">Weeks 10–14</div>
+    </div>
+    <div class="phase-body">
+      <p>Once the parallel test proves the system is accurate, your team transitions to using it as the primary eligibility check. Staff stops manually verifying patients the system marks as confirmed, and only reviews the ones that are flagged.</p>
+
+      <div class="phase-section-label">What changes</div>
+      <ul class="phase-list">
+        <li>Green patients: verified automatically, no manual check needed</li>
+        <li>Yellow patients: system found something worth reviewing — staff checks these</li>
+        <li>Red patients: clear problem (lapsed coverage, missing info) — staff takes action</li>
+        <li>Adding real-time checks when new appointments are booked</li>
+      </ul>
+
+      <div class="phase-section-label">You'll receive</div>
+      <ul class="phase-list deliverable-list">
+        <li>Fully operational automated eligibility system</li>
+        <li>Before/after metrics: time saved per day and accuracy rate</li>
+        <li>Staff training on using the dashboard</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="phase">
+    <div class="phase-dot">+</div>
+    <div class="phase-header">
+      <h3>What Comes Next</h3>
+      <div class="timeline">Month 4 and beyond</div>
+    </div>
+    <div class="phase-body">
+      <p>Once eligibility is running smoothly, the same infrastructure opens the door to additional automation — each one following the same approach of observe, build, test, adopt.</p>
+
+      <div class="phase-section-label">Potential next projects</div>
+      <ul class="phase-list">
+        <li>Claim scrubbing — catching common errors before claims are submitted</li>
+        <li>Denial tracking — logging patterns to reduce future denials</li>
+        <li>Pre-authorization document assembly — pulling treatment plans, X-rays, and drafting narratives</li>
+        <li>Claim status monitoring — automated follow-up on unpaid claims</li>
+      </ul>
+
+      <p style="margin-top: 14px;">We'll prioritize based on what's creating the most pain after eligibility is handled.</p>
+    </div>
+  </div>
+
+  <!-- Approach -->
+  <div class="approach">
+    <h2>My Approach</h2>
+    <p>I believe in building around what already works. You've invested in Eaglesoft and Vyne — this project adds intelligence on top of those systems, not a replacement for them. Nothing gets deployed until it's been tested alongside your current process, and your team always has the final say.</p>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-title">Human in the loop</div>
+        <div class="principle-desc">The system surfaces information and flags issues. Your staff makes the decisions.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">Prove before you trust</div>
+        <div class="principle-desc">Every feature runs in parallel alongside manual processes before going live.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">Built on your stack</div>
+        <div class="principle-desc">Integrates with Eaglesoft and Vyne Trellis. No rip and replace.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">HIPAA compliant</div>
+        <div class="principle-desc">Encrypted data, signed BAA, proper access controls from day one.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Prepared by Sam Dickinson · Questions? Let's talk.</p>
+</div>
+
+</body>
+</html>
