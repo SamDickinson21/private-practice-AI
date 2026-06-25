@@ -3,66 +3,329 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dental Insurance Automation — ROI Calculator</title>
+<title>Dental Practice Automation — Sam Dickinson</title>
 <style>
-  :root {
-    --accent: #2563eb;
-    --accent-light: #dbeafe;
-    --text: #1a1a2e;
-    --text-muted: #6b7280;
-    --text-faint: #9ca3af;
-    --card-bg: #ffffff;
-    --border: #e5e7eb;
-    --negative: #ef4444;
-  }
+:root {
+    --navy: #26582e;
+    --slate: #4a4a4a;
+    --muted: #6b6b6b;
+    --teal: #26582e;
+    --teal-light: #eef3ef;
+    --teal-dark: #1e4424;
+    --bg: #f7f7f7;
+    --card: #ffffff;
+    --border: #e0e0e0;
+    --amber: #26582e;
+    --amber-light: #eef3ef;
+    --negative: #c0392b;
+    --mono: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', monospace;
+}
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: var(--text);
-    background: #f8f9fb;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    color: #1e293b;
+    background: var(--bg);
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
-  .wrap {
-    max-width: 720px;
+  .site-nav {
+    background: var(--navy);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .nav-inner {
+    max-width: 760px;
     margin: 0 auto;
-    padding: 32px 20px 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 
-  h1 {
-    font-size: 22px;
+  .nav-brand {
+    font-size: 13px;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    margin-right: auto;
+    padding: 14px 0;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-tab {
+    padding: 14px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.6);
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
+    font-family: inherit;
+  }
+
+  .nav-tab:hover { color: rgba(255,255,255,0.85); }
+  .nav-tab.active { color: #fff; border-bottom-color: var(--teal); }
+
+  .header {
+    background: var(--navy);
+    color: #fff;
+    padding: 40px 24px 44px;
+  }
+
+  .header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  .header-inner h1 {
+    font-size: 28px;
     font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: 6px;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+    line-height: 1.2;
   }
 
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-muted);
+  .header-inner .tagline {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
     line-height: 1.5;
-    margin-bottom: 32px;
+    max-width: 540px;
   }
 
-  .card {
-    background: var(--card-bg);
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .header-meta-item {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .header-meta-item span {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: normal;
+    text-transform: none;
+    margin-top: 2px;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  .main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .summary {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-bottom: 40px;
+  }
+
+  .summary h2, .approach h2 {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .summary p, .approach p {
+    font-size: 15px;
+    color: var(--slate);
+    line-height: 1.7;
+  }
+
+  .summary p + p, .approach p + p { margin-top: 12px; }
+
+  .phase {
+    position: relative;
+    padding-left: 36px;
+    margin-bottom: 40px;
+  }
+
+  .phase::before {
+    content: '';
+    position: absolute;
+    left: 11px;
+    top: 32px;
+    bottom: -40px;
+    width: 2px;
+    background: var(--border);
+  }
+
+  .phase:last-of-type::before { display: none; }
+
+  .phase-dot {
+    position: absolute;
+    left: 0;
+    top: 6px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--teal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .phase-header { margin-bottom: 14px; }
+
+  .phase-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+    letter-spacing: -0.01em;
+  }
+
+  .phase-header .timeline {
+    font-size: 13px;
+    color: var(--teal-dark);
+    font-weight: 600;
+    margin-top: 2px;
+  }
+
+  .phase-body {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 22px;
+  }
+
+  .phase-body p {
+    font-size: 14.5px;
+    color: var(--slate);
+    line-height: 1.65;
+  }
+
+  .phase-body p + p { margin-top: 10px; }
+
+  .phase-section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    font-weight: 700;
+    margin-top: 18px;
+    margin-bottom: 8px;
+  }
+
+  .phase-section-label:first-child { margin-top: 0; }
+
+  .phase-list { list-style: none; padding: 0; }
+
+  .phase-list li {
+    font-size: 14px;
+    color: var(--slate);
+    padding: 5px 0;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.55;
+  }
+
+  .phase-list li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: 13px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    border: 2px solid var(--teal);
+  }
+
+  .deliverable-list li::before {
+    background: var(--amber-light);
+    border-color: var(--amber);
+  }
+
+  .needs-card {
+    background: var(--teal-light);
+    border: 1px solid #99f6e4;
+    border-radius: 10px;
+    padding: 22px 22px;
+    margin-top: 16px;
+  }
+
+  .needs-card .phase-section-label { color: var(--teal-dark); }
+  .needs-card li { color: #1e293b; }
+  .needs-card li::before { background: #fff; border-color: var(--teal-dark); }
+
+  .approach {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px 24px;
+    margin-top: 48px;
+  }
+
+  .principles {
+    margin-top: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .principle {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px 18px;
+  }
+
+  .principle-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 4px;
+  }
+
+  .principle-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* Calculator */
+  .calc-section {
+    background: var(--card);
     border-radius: 14px;
     padding: 24px 22px;
     border: 1px solid var(--border);
     margin-bottom: 16px;
   }
 
-  .card-label {
+  .calc-label {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: var(--text-muted);
+    color: var(--muted);
     margin-bottom: 20px;
   }
 
-  /* Sliders */
   .slider-group { margin-bottom: 28px; }
   .slider-group:last-child { margin-bottom: 0; }
 
@@ -76,27 +339,27 @@
   .slider-label {
     font-size: 13px;
     font-weight: 600;
-    color: var(--text);
+    color: #1e293b;
     letter-spacing: 0.02em;
   }
 
   .slider-value {
     font-size: 22px;
     font-weight: 700;
-    color: var(--accent);
-    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    color: var(--teal);
+    font-family: var(--mono);
   }
 
   .slider-hint {
     font-size: 11.5px;
-    color: var(--text-muted);
+    color: var(--muted);
     margin-bottom: 8px;
     line-height: 1.4;
   }
 
   input[type="range"] {
     width: 100%;
-    accent-color: var(--accent);
+    accent-color: var(--teal);
     height: 6px;
     cursor: pointer;
   }
@@ -105,11 +368,10 @@
     display: flex;
     justify-content: space-between;
     font-size: 10.5px;
-    color: var(--text-faint);
+    color: var(--muted);
     margin-top: 2px;
   }
 
-  /* Result cards row */
   .results-row {
     display: flex;
     gap: 12px;
@@ -124,16 +386,10 @@
     min-width: 160px;
   }
 
-  .result-card.accent {
-    background: var(--accent);
-  }
+  .result-card.accent { background: var(--teal); }
+  .result-card.neutral { background: var(--card); border: 1px solid var(--border); }
 
-  .result-card.neutral {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-  }
-
-  .result-card .rc-label {
+  .rc-label {
     font-size: 11.5px;
     font-weight: 600;
     text-transform: uppercase;
@@ -142,28 +398,22 @@
   }
 
   .result-card.accent .rc-label { color: rgba(255,255,255,0.8); }
-  .result-card.neutral .rc-label { color: var(--text-muted); }
+  .result-card.neutral .rc-label { color: var(--muted); }
 
-  .result-card .rc-value {
+  .rc-value {
     font-size: 28px;
     font-weight: 800;
-    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    font-family: var(--mono);
     line-height: 1.1;
   }
 
   .result-card.accent .rc-value { color: #fff; }
-  .result-card.neutral .rc-value { color: var(--text); }
+  .result-card.neutral .rc-value { color: #1e293b; }
 
-  .result-card .rc-sub {
-    font-size: 12px;
-    margin-top: 6px;
-    line-height: 1.4;
-  }
-
+  .rc-sub { font-size: 12px; margin-top: 6px; line-height: 1.4; }
   .result-card.accent .rc-sub { color: rgba(255,255,255,0.7); }
-  .result-card.neutral .rc-sub { color: var(--text-muted); }
+  .result-card.neutral .rc-sub { color: var(--muted); }
 
-  /* Breakdown */
   .breakdown-row {
     display: flex;
     align-items: center;
@@ -174,11 +424,7 @@
 
   .breakdown-row:last-of-type { border-bottom: none; }
 
-  .br-label {
-    flex: 1;
-    font-size: 13.5px;
-    color: var(--text);
-  }
+  .br-label { flex: 1; font-size: 13.5px; color: #1e293b; }
 
   .br-bar-track {
     width: 100px;
@@ -191,15 +437,15 @@
   .br-bar-fill {
     height: 100%;
     border-radius: 3px;
-    background: var(--accent);
+    background: var(--teal);
     transition: width 0.3s;
   }
 
   .br-value {
     font-size: 14px;
     font-weight: 700;
-    color: var(--accent);
-    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    color: var(--teal);
+    font-family: var(--mono);
     min-width: 100px;
     text-align: right;
   }
@@ -211,133 +457,377 @@
     padding-top: 14px;
   }
 
-  .net-label {
-    font-size: 13.5px;
-    font-weight: 700;
-  }
+  .net-label { font-size: 13.5px; font-weight: 700; }
 
   .net-value {
     font-size: 20px;
     font-weight: 800;
-    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', monospace;
+    font-family: var(--mono);
   }
 
   .pitch-box {
     margin-top: 24px;
     padding: 18px 20px;
-    background: var(--accent-light);
+    background: var(--teal-light);
     border-radius: 12px;
     font-size: 13px;
     line-height: 1.6;
-    color: var(--text);
+    color: #1e293b;
   }
 
   .pitch-box strong { display: block; margin-bottom: 4px; }
 
-  @media (max-width: 520px) {
+  .footer {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+    text-align: center;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 540px) {
+    .header { padding: 32px 20px; }
+    .header-inner h1 { font-size: 22px; }
+    .header-meta { gap: 20px; }
+    .main { padding: 28px 16px 60px; }
+    .principles { grid-template-columns: 1fr; }
+    .phase { padding-left: 32px; }
     .results-row { flex-direction: column; }
     .result-card { min-width: unset; }
     .br-bar-track { width: 60px; }
     .br-value { min-width: 80px; font-size: 13px; }
+    .nav-brand { font-size: 0; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>Dental Insurance Automation</h1>
-  <p class="subtitle">Plug in the practice's real numbers to see what automation is worth.</p>
 
-  <!-- Practice Numbers -->
-  <div class="card">
-    <div class="card-label">Practice Numbers</div>
+<nav class="site-nav">
+  <div class="nav-inner">
+    <div class="nav-brand">Sam Dickinson</div>
+    <button class="nav-tab active" onclick="switchTab('roadmap')">Project Roadmap</button>
+    <button class="nav-tab" onclick="switchTab('calculator')">ROI Calculator</button>
+  </div>
+</nav>
 
+<!-- ═══ TAB 1: ROADMAP ═══ -->
+<div id="tab-roadmap" class="tab-content active">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>Patient Eligibility Automation</h1>
+    <p class="tagline">A phased roadmap for automating insurance eligibility verification — designed around your existing Eaglesoft and Vyne Trellis workflow.</p>
+    <div class="header-meta">
+      <div class="header-meta-item">Prepared by<span>Sam Dickinson</span></div>
+      <div class="header-meta-item">Estimated timeline<span>~14 Weeks</span></div>
+      <div class="header-meta-item">Starting focus<span>Eligibility Verification</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+  <div class="summary">
+    <h2>The Problem</h2>
+    <p>Your team manually checks patient insurance eligibility before appointments — logging into portals, calling carriers, verifying coverage details. This takes hours every day, and when the information is wrong, it creates downstream problems: surprise patient bills, denied claims, and rework.</p>
+    <p>The solution is to automate that process. A system that pulls upcoming appointments from Eaglesoft, automatically verifies each patient's eligibility through existing insurance connections, and surfaces the results for staff — flagging anything that needs human attention. Staff stops doing data entry and starts reviewing data.</p>
+    <p>This roadmap outlines what that project looks like, phase by phase, regardless of who takes it on.</p>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase">
+    <div class="phase-dot">1</div>
+    <div class="phase-header">
+      <h3>Discovery &amp; Observation</h3>
+      <div class="timeline">Weeks 1–2</div>
+    </div>
+    <div class="phase-body">
+      <p>Before building anything, the developer needs to understand exactly how eligibility works in the office today — not how it's supposed to work, but how it actually works. That means sitting with the insurance coordinator, watching the process end-to-end, and documenting every step.</p>
+      <div class="phase-section-label">What needs to be mapped</div>
+      <ul class="phase-list">
+        <li>The full workflow from appointment booking to eligibility confirmation</li>
+        <li>Which insurance carriers make up the majority of patients</li>
+        <li>Where time is spent and where errors typically occur</li>
+        <li>How Eaglesoft and Vyne Trellis are currently used in the process</li>
+        <li>Baseline measurements: time per day on eligibility, current accuracy</li>
+      </ul>
+      <div class="needs-card">
+        <div class="phase-section-label">What the practice needs to provide</div>
+        <ul class="phase-list">
+          <li>Access to shadow the person who handles eligibility for a half day</li>
+          <li>Eaglesoft version number and server access details</li>
+          <li>Current Vyne Trellis tier and feature information</li>
+          <li>A signed Business Associate Agreement (BAA) before any access to patient data — <a href="baa-template.docx" download style="color: var(--teal-dark); font-weight: 600; text-decoration: underline;">download a standard template here</a></li>
+        </ul>
+      </div>
+      <div class="phase-section-label">Deliverables</div>
+      <ul class="phase-list deliverable-list">
+        <li>A written map of the current eligibility workflow</li>
+        <li>Time audit showing where hours are spent</li>
+        <li>A clear technical plan for the automation build</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase">
+    <div class="phase-dot">2</div>
+    <div class="phase-header">
+      <h3>Technical Setup &amp; Validation</h3>
+      <div class="timeline">Weeks 2–4</div>
+    </div>
+    <div class="phase-body">
+      <p>This phase confirms that the integration path actually works before committing to a full build. Think of it as "measure twice, cut once" — making sure data flows correctly and the connections are solid.</p>
+      <div class="phase-section-label">What happens</div>
+      <ul class="phase-list">
+        <li>Set up a secure connection to the Eaglesoft server</li>
+        <li>Test that appointment schedules and patient insurance data can be pulled via the API</li>
+        <li>Connect to the eligibility verification API (Vyne ClearCoverage or alternative) and validate response quality</li>
+        <li>Stand up HIPAA-compliant cloud infrastructure with proper encryption</li>
+        <li>Identify any technical constraints and resolve them early</li>
+      </ul>
+      <div class="needs-card">
+        <div class="phase-section-label">What the practice needs to provide</div>
+        <ul class="phase-list">
+          <li>Admin access or coordination with the IT provider for Eaglesoft server access</li>
+          <li>Remote access setup (VPN or similar) so development can happen without daily onsite visits</li>
+        </ul>
+      </div>
+      <div class="phase-section-label">Deliverables</div>
+      <ul class="phase-list deliverable-list">
+        <li>Confirmation that the integration works with the practice's specific setup</li>
+        <li>Architecture overview showing how data flows securely between systems</li>
+        <li>Monthly infrastructure cost estimate</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 3 -->
+  <div class="phase">
+    <div class="phase-dot">3</div>
+    <div class="phase-header">
+      <h3>Build the Core System</h3>
+      <div class="timeline">Weeks 4–8</div>
+    </div>
+    <div class="phase-body">
+      <p>This is where the automation gets built. The first version should focus on doing one thing well: checking tomorrow's patients automatically and giving staff a clear view of who's verified and who needs attention.</p>
+      <div class="phase-section-label">What the system should do</div>
+      <ul class="phase-list">
+        <li>Pull the next day's appointment list from Eaglesoft automatically each evening</li>
+        <li>Check insurance eligibility for every scheduled patient</li>
+        <li>Parse the response: active/inactive, plan type, deductibles, maximums, co-pay percentages</li>
+        <li>Flag incomplete or problematic responses for manual follow-up</li>
+        <li>Display results on a simple dashboard — green (verified), yellow (review needed), red (problem)</li>
+      </ul>
+      <div class="phase-section-label">What it should not do yet</div>
+      <ul class="phase-list">
+        <li>Real-time checks at the moment of booking (that comes later)</li>
+        <li>Submitting claims or modifying any data in Eaglesoft</li>
+        <li>Replacing human judgment — staff always has final say</li>
+      </ul>
+      <div class="phase-section-label">Deliverables</div>
+      <ul class="phase-list deliverable-list">
+        <li>A working system that checks eligibility for the next day's patients</li>
+        <li>A staff-facing dashboard showing results at a glance</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 4 -->
+  <div class="phase">
+    <div class="phase-dot">4</div>
+    <div class="phase-header">
+      <h3>Parallel Testing</h3>
+      <div class="timeline">Weeks 8–10</div>
+    </div>
+    <div class="phase-body">
+      <p>This phase addresses the accuracy question directly. For two weeks, the automated system runs alongside the existing manual process. Staff keeps checking eligibility as they normally would, and results are compared daily.</p>
+      <div class="phase-section-label">How it works</div>
+      <ul class="phase-list">
+        <li>The system checks eligibility automatically — staff checks manually as usual</li>
+        <li>Results are compared daily to identify any discrepancies</li>
+        <li>Every mismatch gets investigated: was the system wrong, or was the manual check wrong?</li>
+        <li>Edge cases are fixed as they surface</li>
+      </ul>
+      <p style="margin-top: 14px;">This is zero risk to the practice. Nothing changes about the current process — the new system just runs in parallel to prove it works. If the accuracy isn't there, it gets fixed before anyone relies on it.</p>
+      <div class="phase-section-label">Deliverables</div>
+      <ul class="phase-list deliverable-list">
+        <li>An accuracy report showing match rate over the testing period</li>
+        <li>Documentation of any edge cases found and how they were resolved</li>
+        <li>A clear recommendation on whether the system is ready for daily use</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 5 -->
+  <div class="phase">
+    <div class="phase-dot">5</div>
+    <div class="phase-header">
+      <h3>Go Live</h3>
+      <div class="timeline">Weeks 10–14</div>
+    </div>
+    <div class="phase-body">
+      <p>Once the parallel test proves the system is accurate, the team transitions to using it as the primary eligibility check. Staff stops manually verifying patients the system marks as confirmed, and only reviews the ones that are flagged.</p>
+      <div class="phase-section-label">What changes</div>
+      <ul class="phase-list">
+        <li>Green patients: verified automatically, no manual check needed</li>
+        <li>Yellow patients: system found something worth reviewing — staff checks these</li>
+        <li>Red patients: clear problem (lapsed coverage, missing info) — staff takes action</li>
+        <li>Adding real-time checks when new appointments are booked</li>
+      </ul>
+      <div class="phase-section-label">Deliverables</div>
+      <ul class="phase-list deliverable-list">
+        <li>Fully operational automated eligibility system</li>
+        <li>Before/after metrics: time saved per day and accuracy rate</li>
+        <li>Staff training on using the dashboard</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Phase 6 -->
+  <div class="phase">
+    <div class="phase-dot">+</div>
+    <div class="phase-header">
+      <h3>What Comes Next</h3>
+      <div class="timeline">Month 4 and beyond</div>
+    </div>
+    <div class="phase-body">
+      <p>Once eligibility is running smoothly, the same infrastructure opens the door to additional automation — each one following the same approach of observe, build, test, adopt.</p>
+      <div class="phase-section-label">Potential next projects</div>
+      <ul class="phase-list">
+        <li>Claim scrubbing — catching common errors before claims are submitted</li>
+        <li>Denial tracking — logging patterns to reduce future denials</li>
+        <li>Pre-authorization document assembly — pulling treatment plans, X-rays, and drafting narratives</li>
+        <li>Claim status monitoring — automated follow-up on unpaid claims</li>
+      </ul>
+      <p style="margin-top: 14px;">Priority should be based on what's creating the most pain after eligibility is handled.</p>
+    </div>
+  </div>
+
+  <!-- Approach -->
+  <div class="approach">
+    <h2>Guiding Principles</h2>
+    <p>This roadmap is built around a core belief: automation should enhance what already works, not replace it. The practice has invested in Eaglesoft and Vyne — the right approach adds intelligence on top of those systems. Nothing should be deployed until it's been tested alongside the current process, and staff should always have the final say.</p>
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-title">Human in the loop</div>
+        <div class="principle-desc">The system surfaces information and flags issues. Staff makes the decisions.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">Prove before you trust</div>
+        <div class="principle-desc">Every feature runs in parallel alongside manual processes before going live.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">Built on your stack</div>
+        <div class="principle-desc">Integrates with Eaglesoft and Vyne Trellis. No rip and replace.</div>
+      </div>
+      <div class="principle">
+        <div class="principle-title">HIPAA compliant</div>
+        <div class="principle-desc">Encrypted data, signed BAA, proper access controls from day one.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /tab-roadmap -->
+
+
+<!-- ═══ TAB 2: ROI CALCULATOR ═══ -->
+<div id="tab-calculator" class="tab-content">
+
+<div class="header">
+  <div class="header-inner">
+    <h1>ROI Calculator</h1>
+    <p class="tagline">Plug in the practice's real numbers to see what insurance automation is worth.</p>
+  </div>
+</div>
+
+<div class="main">
+
+  <div class="calc-section">
+    <div class="calc-label">Practice Numbers</div>
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Claims per month</span>
         <span class="slider-value" id="v-claims">400</span>
       </div>
       <div class="slider-hint">Total insurance claims submitted monthly</div>
-      <input type="range" id="claims" min="50" max="1500" step="25" value="400" oninput="update()">
+      <input type="range" id="claims" min="50" max="1500" step="25" value="400" oninput="calc()">
       <div class="slider-bounds"><span>50</span><span>1,500</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Average claim value</span>
         <span class="slider-value" id="v-avgclaim">$300</span>
       </div>
       <div class="slider-hint">Average reimbursement per claim</div>
-      <input type="range" id="avgclaim" min="50" max="800" step="25" value="300" oninput="update()">
+      <input type="range" id="avgclaim" min="50" max="800" step="25" value="300" oninput="calc()">
       <div class="slider-bounds"><span>$50</span><span>$800</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Current denial rate</span>
         <span class="slider-value" id="v-denial">8%</span>
       </div>
       <div class="slider-hint">Industry average is 5–10%</div>
-      <input type="range" id="denial" min="1" max="25" step="0.5" value="8" oninput="update()">
+      <input type="range" id="denial" min="1" max="25" step="0.5" value="8" oninput="calc()">
       <div class="slider-bounds"><span>1%</span><span>25%</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Hours/day on insurance work</span>
         <span class="slider-value" id="v-hours">4h</span>
       </div>
       <div class="slider-hint">Total staff time: calls, portals, claims, follow-ups</div>
-      <input type="range" id="hours" min="1" max="8" step="0.5" value="4" oninput="update()">
+      <input type="range" id="hours" min="1" max="8" step="0.5" value="4" oninput="calc()">
       <div class="slider-bounds"><span>1h</span><span>8h</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Staff hourly rate</span>
         <span class="slider-value" id="v-rate">$22</span>
       </div>
       <div class="slider-hint">Insurance coordinator loaded rate</div>
-      <input type="range" id="rate" min="14" max="40" step="1" value="22" oninput="update()">
+      <input type="range" id="rate" min="14" max="40" step="1" value="22" oninput="calc()">
       <div class="slider-bounds"><span>$14</span><span>$40</span></div>
     </div>
   </div>
 
-  <!-- Automation Assumptions -->
-  <div class="card">
-    <div class="card-label">Automation Assumptions</div>
-
+  <div class="calc-section">
+    <div class="calc-label">Automation Assumptions</div>
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Denial reduction</span>
         <span class="slider-value" id="v-denred">40%</span>
       </div>
       <div class="slider-hint">Conservative: 20–30%. Aggressive: 50%+</div>
-      <input type="range" id="denred" min="10" max="70" step="5" value="40" oninput="update()">
+      <input type="range" id="denred" min="10" max="70" step="5" value="40" oninput="calc()">
       <div class="slider-bounds"><span>10%</span><span>70%</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Time reduction</span>
         <span class="slider-value" id="v-timered">50%</span>
       </div>
       <div class="slider-hint">How much manual insurance work gets automated</div>
-      <input type="range" id="timered" min="10" max="70" step="5" value="50" oninput="update()">
+      <input type="range" id="timered" min="10" max="70" step="5" value="50" oninput="calc()">
       <div class="slider-bounds"><span>10%</span><span>70%</span></div>
     </div>
-
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Monthly infrastructure cost</span>
         <span class="slider-value" id="v-infra">$200</span>
       </div>
       <div class="slider-hint">Cloud hosting, API costs, clearinghouse fees</div>
-      <input type="range" id="infra" min="50" max="500" step="25" value="200" oninput="update()">
+      <input type="range" id="infra" min="50" max="500" step="25" value="200" oninput="calc()">
       <div class="slider-bounds"><span>$50</span><span>$500</span></div>
     </div>
   </div>
 
-  <!-- Results -->
   <div class="results-row">
     <div class="result-card accent">
       <div class="rc-label">Net monthly value</div>
@@ -356,10 +846,8 @@
     </div>
   </div>
 
-  <!-- Breakdown -->
-  <div class="card">
-    <div class="card-label">Where the value comes from</div>
-
+  <div class="calc-section">
+    <div class="calc-label">Where the value comes from</div>
     <div class="breakdown-row">
       <span class="br-label">Recovered denied revenue</span>
       <div class="br-bar-track"><div class="br-bar-fill" id="bar-rev"></div></div>
@@ -375,37 +863,48 @@
       <div class="br-bar-track"><div class="br-bar-fill" id="bar-cost"></div></div>
       <span class="br-value" id="br-cost">—</span>
     </div>
-
     <div class="net-row">
       <span class="net-label">Monthly net</span>
       <span class="net-value" id="net-total">—</span>
     </div>
   </div>
 
-  <!-- Pitch -->
   <div class="pitch-box">
-    <strong>Your pitch with these numbers:</strong>
+    <strong>The case in one sentence:</strong>
     <span id="pitch-text"></span>
   </div>
+
+</div>
+</div><!-- /tab-calculator -->
+
+<div class="footer">
+  <p>Prepared by Sam Dickinson</p>
 </div>
 
 <script>
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    document.querySelector('[onclick="switchTab(\'' + tab + '\')"]').classList.add('active');
+    window.scrollTo(0, 0);
+  }
+
   const $ = (id) => document.getElementById(id);
   const fmt = (n) => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
   const fmtD = (n) => '$' + fmt(n);
 
-  function update() {
-    const claims    = +$('claims').value;
-    const avgclaim  = +$('avgclaim').value;
-    const denial    = +$('denial').value;
-    const hours     = +$('hours').value;
-    const rate      = +$('rate').value;
-    const denred    = +$('denred').value;
-    const timered   = +$('timered').value;
-    const infra     = +$('infra').value;
-    const days      = 21;
+  function calc() {
+    const claims   = +$('claims').value;
+    const avgclaim = +$('avgclaim').value;
+    const denial   = +$('denial').value;
+    const hours    = +$('hours').value;
+    const rate     = +$('rate').value;
+    const denred   = +$('denred').value;
+    const timered  = +$('timered').value;
+    const infra    = +$('infra').value;
+    const days     = 21;
 
-    // Display slider values
     $('v-claims').textContent  = fmt(claims);
     $('v-avgclaim').textContent = fmtD(avgclaim);
     $('v-denial').textContent  = denial + '%';
@@ -415,47 +914,43 @@
     $('v-timered').textContent = timered + '%';
     $('v-infra').textContent   = fmtD(infra);
 
-    // Math
-    const monthlyDeniedRev  = claims * (denial / 100) * avgclaim;
-    const recoveredRev      = monthlyDeniedRev * (denred / 100);
-    const monthlyLabor      = hours * rate * days;
-    const laborSaved        = monthlyLabor * (timered / 100);
-    const hoursSaved        = hours * days * (timered / 100);
-    const totalValue        = recoveredRev + laborSaved;
-    const netMonthly        = totalValue - infra;
-    const annualNet         = netMonthly * 12;
-    const roiX              = infra > 0 ? totalValue / infra : 0;
-    const maxBar            = Math.max(recoveredRev, laborSaved, 1);
+    const monthlyDeniedRev = claims * (denial / 100) * avgclaim;
+    const recoveredRev     = monthlyDeniedRev * (denred / 100);
+    const monthlyLabor     = hours * rate * days;
+    const laborSaved       = monthlyLabor * (timered / 100);
+    const hoursSaved       = hours * days * (timered / 100);
+    const totalValue       = recoveredRev + laborSaved;
+    const netMonthly       = totalValue - infra;
+    const annualNet        = netMonthly * 12;
+    const roiX             = infra > 0 ? totalValue / infra : 0;
+    const maxBar           = Math.max(recoveredRev, laborSaved, 1);
 
-    // Result cards
     $('r-net').textContent     = fmtD(netMonthly);
     $('r-annual').textContent  = fmtD(annualNet) + '/year after costs';
     $('r-roi').textContent     = roiX.toFixed(1) + 'x';
     $('r-roi-sub').textContent = 'Every $1 spent returns ' + fmtD(roiX);
     $('r-hours').textContent   = fmt(hoursSaved) + 'h';
 
-    // Breakdown
     $('br-rev').textContent   = fmtD(recoveredRev) + '/mo';
     $('br-labor').textContent = fmtD(laborSaved) + '/mo';
-    $('br-cost').textContent  = '−' + fmtD(infra) + '/mo';
+    $('br-cost').textContent  = '\u2212' + fmtD(infra) + '/mo';
 
     $('bar-rev').style.width   = (recoveredRev / maxBar * 100) + '%';
     $('bar-labor').style.width = (laborSaved / maxBar * 100) + '%';
     $('bar-cost').style.width  = (infra / maxBar * 100) + '%';
 
-    // Net color
     $('net-total').textContent = fmtD(netMonthly);
-    $('net-total').style.color = netMonthly >= 0 ? 'var(--accent)' : 'var(--negative)';
+    $('net-total').style.color = netMonthly >= 0 ? 'var(--teal)' : 'var(--negative)';
 
-    // Pitch
     $('pitch-text').textContent =
-      `"Right now the practice loses roughly ${fmtD(monthlyDeniedRev)}/month in denied claims, ` +
-      `and spends ${fmtD(monthlyLabor)}/month in staff time on insurance work. ` +
-      `I can cut those by ${denred}% and ${timered}% respectively for ${fmtD(infra)}/month ` +
-      `in operating costs — a net gain of ${fmtD(netMonthly)} every month."`;
+      'The practice loses roughly ' + fmtD(monthlyDeniedRev) + '/month in denied claims ' +
+      'and spends ' + fmtD(monthlyLabor) + '/month in staff time on insurance work. ' +
+      'Automation could cut those by ' + denred + '% and ' + timered + '% respectively for ' + fmtD(infra) + '/month ' +
+      'in operating costs \u2014 a net gain of ' + fmtD(netMonthly) + ' every month.';
   }
 
-  update();
+  calc();
 </script>
+
 </body>
 </html>
