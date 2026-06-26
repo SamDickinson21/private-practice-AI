@@ -3,28 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wildwood Eligibility Automation - Sam Dickinson</title>
+<title>Wildwood Family Dentistry - Practice Automation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
+  :root {
     --navy: #26582e;
     --slate: #4a4a4a;
     --muted: #6b6b6b;
     --teal: #26582e;
     --teal-light: #eef3ef;
     --teal-dark: #1e4424;
-    --bg: #f7f7f7;
+    --bg: #ededed;
     --card: #ffffff;
-    --border: #e0e0e0;
-    --amber: #26582e;
-    --amber-light: #eef3ef;
+    --border: #d9d9d9;
+    --amber: #2563eb;
+    --amber-light: #dbeafe;
+    --needs-dot: #d97706;
+    --needs-dot-light: #fef3c7;
     --negative: #c0392b;
     --mono: 'SF Mono', 'Cascadia Code', 'JetBrains Mono', monospace;
-}
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-family: var(--sans);
     color: #1e293b;
     background: var(--bg);
     line-height: 1.6;
@@ -71,7 +78,7 @@
   }
 
   .nav-tab:hover { color: rgba(255,255,255,0.85); }
-  .nav-tab.active { color: #fff; border-bottom-color: var(--teal); }
+  .nav-tab.active { color: #fff; border-bottom-color: #fff; }
 
   .header {
     background: var(--navy);
@@ -85,9 +92,10 @@
   }
 
   .header-inner h1 {
-    font-size: 28px;
-    font-weight: 800;
-    letter-spacing: -0.03em;
+    font-family: var(--serif);
+    font-size: 32px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
     margin-bottom: 8px;
     line-height: 1.2;
   }
@@ -137,16 +145,17 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 28px 24px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 
   .summary h2, .approach h2 {
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: var(--muted);
+    font-family: var(--serif);
+    font-size: 20px;
+    letter-spacing: 0.02em;
+    color: #1e293b;
     margin-bottom: 14px;
-    font-weight: 700;
+    font-weight: 600;
+    text-transform: none;
   }
 
   .summary p, .approach p {
@@ -156,6 +165,29 @@
   }
 
   .summary p + p, .approach p + p { margin-top: 12px; }
+
+  .statement-card {
+    background: var(--teal-light);
+    border: 1px solid #c8d9ca;
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 40px;
+  }
+
+  .statement-card .statement-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--teal-dark);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .statement-card p {
+    font-size: 14.5px;
+    color: #1e293b;
+    line-height: 1.65;
+  }
 
   .phase {
     position: relative;
@@ -182,7 +214,7 @@
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: var(--teal);
+    background: #26582e;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,15 +226,16 @@
   .phase-header { margin-bottom: 14px; }
 
   .phase-header h3 {
-    font-size: 18px;
-    font-weight: 700;
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 600;
     color: #1e293b;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.01em;
   }
 
   .phase-header .timeline {
     font-size: 13px;
-    color: var(--teal-dark);
+    color: #26582e;
     font-weight: 600;
     margin-top: 2px;
   }
@@ -249,7 +282,7 @@
     content: '';
     position: absolute;
     left: 2px;
-    top: 13px;
+    top: 8px;
     width: 8px;
     height: 8px;
     border-radius: 50%;
@@ -263,16 +296,16 @@
   }
 
   .needs-card {
-    background: var(--teal-light);
-    border: 1px solid #99f6e4;
+    background: var(--needs-dot-light);
+    border: 1px solid #fde68a;
     border-radius: 10px;
     padding: 22px 22px;
     margin-top: 16px;
   }
 
-  .needs-card .phase-section-label { color: var(--teal-dark); }
+  .needs-card .phase-section-label { color: #92400e; }
   .needs-card li { color: #1e293b; }
-  .needs-card li::before { background: #fff; border-color: var(--teal-dark); }
+  .needs-card li::before { background: #fef3c7; border-color: var(--needs-dot); }
 
   .approach {
     background: var(--card);
@@ -303,6 +336,34 @@
   }
 
   .principle-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  .next-projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .next-project {
+    background: var(--bg);
+    border-radius: 8px;
+    padding: 16px 18px;
+    border-left: 3px solid var(--teal);
+  }
+
+  .next-project-title {
+    font-family: var(--serif);
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 6px;
+  }
+
+  .next-project-desc {
     font-size: 13px;
     color: var(--muted);
     line-height: 1.5;
@@ -496,6 +557,7 @@
     .header-meta { gap: 20px; }
     .main { padding: 28px 16px 60px; }
     .principles { grid-template-columns: 1fr; }
+    .next-projects { grid-template-columns: 1fr; }
     .phase { padding-left: 32px; }
     .results-row { flex-direction: column; }
     .result-card { min-width: unset; }
@@ -509,66 +571,68 @@
 
 <nav class="site-nav">
   <div class="nav-inner">
-    <div class="nav-brand">Sam Dickinson</div>
-    <button class="nav-tab active" onclick="switchTab('roadmap')">Project Roadmap</button>
-    <button class="nav-tab" onclick="switchTab('calculator')">ROI Calculator</button>
+    <div class="nav-brand">Wildwood Family Dentistry</div>
+    <button class="nav-tab active" onclick="switchTab('roadmap')">Roadmap</button>
+    <button class="nav-tab" onclick="switchTab('calculator')">ROI</button>
   </div>
 </nav>
 
-<!-- ═══ TAB 1: ROADMAP ═══ -->
+<!-- TAB 1: ROADMAP -->
 <div id="tab-roadmap" class="tab-content active">
 
 <div class="header">
   <div class="header-inner">
-    <h1>Wildwood Family Dentistry - Patient Eligibility Automation</h1>
-    <p class="tagline">A phased roadmap for automating insurance eligibility verification designed around your existing Eaglesoft and Vyne Trellis workflow.</p>
+    <h1>Patient Eligibility Automation</h1>
+    <p class="tagline">A phased roadmap for automating insurance eligibility verification, designed around your existing Eaglesoft and Vyne Trellis workflow.</p>
     <div class="header-meta">
       <div class="header-meta-item">Prepared by<span>Sam Dickinson</span></div>
-      <div class="header-meta-item">Estimated timeline<span>~12 Weeks</span></div>
+      <div class="header-meta-item">Estimated effort<span>40-60 Hours</span></div>
       <div class="header-meta-item">Starting focus<span>Eligibility Verification</span></div>
     </div>
   </div>
 </div>
 
 <div class="main">
+
+  <!-- Statement -->
+  <div class="statement-card">
+    <div class="statement-label">A note on this project</div>
+    <p>To be clear, the eligibility project does not require Artificial Intelligence. This is pure automation: API calls, data parsing, and rule-based flagging. It pulls structured data from one system, sends it to another, and displays the results. This roadmap outlines what that project looks like, phase by phase, regardless of who takes it on. Hour estimates assume timely access to both the Eaglesoft and eligibility APIs.</p>
+  </div>
+
   <div class="summary">
     <h2>The Problem</h2>
-    <p>Your team manually checks patient insurance eligibility before appointments. Logging into portals, calling carriers, verifying coverage details. This takes hours every day, and when the information is wrong, it creates downstream problems: surprise patient bills, denied claims, and rework.</p>
-    <p>The solution is to automate that process. A system that pulls upcoming appointments from Eaglesoft, automatically verifies each patient's eligibility through existing insurance connections, and surfaces the results for staff while flagging anything that needs human attention. Staff stops doing data entry and starts reviewing data.</p>
-    <p>This roadmap outlines what that project looks like, phase by phase, regardless of who takes it on.</p>
+    <p>The team manually checks patient insurance eligibility before appointments. That means logging into portals, calling carriers, and verifying coverage details. This takes hours every day, and when the information is wrong it creates downstream problems: surprise patient bills, denied claims, and rework.</p>
+
+    <h2 style="margin-top: 24px;">The Solution</h2>
+    <p>Automate the process. A system pulls upcoming appointments from Eaglesoft, verifies each patient's eligibility through existing insurance connections, and surfaces the results for staff. Anything that needs human attention gets flagged. Staff stops doing data entry and starts reviewing data.</p>
   </div>
 
   <!-- Phase 1 -->
   <div class="phase">
     <div class="phase-dot">1</div>
     <div class="phase-header">
-      <h3>Discovery &amp; Observation</h3>
-      <div class="timeline">Week 1</div>
+      <h3>Discovery</h3>
+      <div class="timeline">5-8 hours</div>
     </div>
     <div class="phase-body">
-      <p>Before building anything, the developer needs to understand exactly how eligibility works in the office today. Not how it's supposed to work, but how it actually works. That means sitting with the insurance coordinator, watching the process end-to-end, and documenting every step.</p>
-      <div class="phase-section-label">What needs to be mapped</div>
-      <ul class="phase-list">
-        <li>The full workflow from appointment booking to eligibility confirmation</li>
-        <li>Which insurance carriers make up the majority of patients</li>
-        <li>Where time is spent and where errors typically occur</li>
-        <li>How Eaglesoft and Vyne Trellis are currently used in the process</li>
-        <li>Baseline measurements: time per day on eligibility, current accuracy</li>
-      </ul>
+      <p>Before building anything, the developer needs a walk-through of the systems and workflows used for eligibility today. What carriers make up the majority of patients, where time is spent, where errors occur, and how Eaglesoft and Vyne are currently used.</p>
+
       <div class="needs-card">
         <div class="phase-section-label">What the practice needs to provide</div>
         <ul class="phase-list">
-          <li>Access to shadow the person who handles eligibility for a half day</li>
+          <li>A walk-through of the current eligibility workflow and systems used</li>
           <li>Eaglesoft version number and server access details</li>
           <li>Current Vyne Trellis tier and feature information</li>
-          <li>A signed Business Associate Agreement (BAA) before any access to patient data <a href="baa-template.docx" download style="color: var(--teal-dark); font-weight: 600; text-decoration: underline;">download a standard template here</a></li>
+          <li>A signed Business Associate Agreement (BAA) before any access to patient data - <a href="baa-template.docx" download style="color: #92400e; font-weight: 600; text-decoration: underline;">download a standard template here</a></li>
         </ul>
       </div>
+
       <div class="phase-section-label">Deliverables</div>
       <ul class="phase-list deliverable-list">
-        <li>A written map of the current eligibility workflow</li>
-        <li>Time audit showing where hours are spent</li>
-        <li>A clear technical plan for the automation build</li>
+        <li>Documented eligibility workflow based on systems walk-through</li>
+        <li>Estimated time currently spent on manual eligibility work</li>
+        <li>Technical plan for the automation build</li>
       </ul>
     </div>
   </div>
@@ -577,30 +641,25 @@
   <div class="phase">
     <div class="phase-dot">2</div>
     <div class="phase-header">
-      <h3>Technical Setup &amp; Validation</h3>
-      <div class="timeline">Weeks 2–3</div>
+      <h3>Technical Setup and Validation</h3>
+      <div class="timeline">8-12 hours</div>
     </div>
     <div class="phase-body">
-      <p>This phase confirms that the integration path actually works before committing to a full build. Think of it as "measure twice, cut once" - making sure data flows correctly and the connections are solid.</p>
-      <div class="phase-section-label">What happens</div>
-      <ul class="phase-list">
-        <li>Set up a secure connection to the Eaglesoft server</li>
-        <li>Test that appointment schedules and patient insurance data can be pulled via the API</li>
-        <li>Connect to the eligibility verification API (Vyne ClearCoverage or alternative) and validate response quality</li>
-        <li>Stand up HIPAA-compliant cloud infrastructure with proper encryption</li>
-        <li>Identify any technical constraints and resolve them early</li>
-      </ul>
+      <p>Confirm the integration path works before committing to a full build. Set up a secure connection to Eaglesoft, test that appointment and insurance data can be pulled via the API, and prospect clearinghouse APIs for eligibility verification. Several developer-friendly options exist with transparent per-transaction pricing and free sandbox environments for testing. Stand up HIPAA-compliant infrastructure.</p>
+
       <div class="needs-card">
         <div class="phase-section-label">What the practice needs to provide</div>
         <ul class="phase-list">
           <li>Admin access or coordination with the IT provider for Eaglesoft server access</li>
-          <li>Remote access setup (VPN or similar) so development can happen without daily onsite visits</li>
+          <li>Remote access setup (VPN or similar) for off-site development</li>
         </ul>
       </div>
+
       <div class="phase-section-label">Deliverables</div>
       <ul class="phase-list deliverable-list">
-        <li>Confirmation that the integration works with the practice's specific setup</li>
-        <li>Architecture overview showing how data flows securely between systems</li>
+        <li>Confirmation that the Eaglesoft integration works with this specific setup</li>
+        <li>Evaluated and selected eligibility clearinghouse API with sandbox testing complete</li>
+        <li>Architecture overview showing how data flows between systems</li>
         <li>Monthly infrastructure cost estimate</li>
       </ul>
     </div>
@@ -611,28 +670,16 @@
     <div class="phase-dot">3</div>
     <div class="phase-header">
       <h3>Build the Core System</h3>
-      <div class="timeline">Weeks 3–6</div>
+      <div class="timeline">20-30 hours</div>
     </div>
     <div class="phase-body">
-      <p>This is where the automation gets built. The first version should focus on doing one thing well: checking tomorrow's patients automatically and giving staff a clear view of who's verified and who needs attention.</p>
-      <div class="phase-section-label">What the system should do</div>
-      <ul class="phase-list">
-        <li>Pull the next day's appointment list from Eaglesoft automatically each evening</li>
-        <li>Check insurance eligibility for every scheduled patient</li>
-        <li>Parse the response: active/inactive, plan type, deductibles, maximums, co-pay percentages</li>
-        <li>Flag incomplete or problematic responses for manual follow-up</li>
-        <li>Display results on a simple dashboard: green (verified), yellow (review needed), red (problem)</li>
-      </ul>
-      <div class="phase-section-label">What it should not do yet</div>
-      <ul class="phase-list">
-        <li>Real-time checks at the moment of booking (that comes later)</li>
-        <li>Submitting claims or modifying any data in Eaglesoft</li>
-        <li>Replacing human judgment: staff always has final say</li>
-      </ul>
+      <p>Build the first version, focused on one thing: checking the next day's patients automatically and giving staff a clear view of who is verified and who needs attention. The system pulls tomorrow's appointment list from Eaglesoft each evening, checks eligibility for every patient, parses the response (active/inactive, plan type, deductibles, maximums, co-pays), flags anything incomplete, and displays results on a dashboard using green/yellow/red status indicators.</p>
+      <p>This version does not do real-time checks at the moment of booking, does not submit claims or modify data in Eaglesoft, and does not replace human judgment. Staff always has final say.</p>
+
       <div class="phase-section-label">Deliverables</div>
       <ul class="phase-list deliverable-list">
-        <li>A working system that checks eligibility for the next day's patients</li>
-        <li>A staff-facing dashboard showing results at a glance</li>
+        <li>Working system that checks eligibility for the next day's patients</li>
+        <li>Staff-facing dashboard showing results at a glance</li>
       </ul>
     </div>
   </div>
@@ -642,23 +689,17 @@
     <div class="phase-dot">4</div>
     <div class="phase-header">
       <h3>Parallel Testing</h3>
-      <div class="timeline">Weeks 6–8</div>
+      <div class="timeline">5-8 hours + 2 weeks running</div>
     </div>
     <div class="phase-body">
-      <p>This phase addresses the accuracy question directly. For two weeks, the automated system runs alongside the existing manual process. Staff keeps checking eligibility as they normally would, and results are compared daily.</p>
-      <div class="phase-section-label">How it works</div>
-      <ul class="phase-list">
-        <li>The system checks eligibility automatically, staff checks manually as usual</li>
-        <li>Results are compared daily to identify any discrepancies</li>
-        <li>Every mismatch gets investigated: was the system wrong, or was the manual check wrong?</li>
-        <li>Edge cases are fixed as they surface</li>
-      </ul>
-      <p style="margin-top: 14px;">This is zero risk to the practice. Nothing changes about the current process - the new system just runs in parallel to prove it works. If the accuracy isn't there, it gets fixed before anyone relies on it.</p>
+      <p>This phase addresses accuracy directly. For two weeks, the automated system runs alongside the existing manual process. Staff keeps checking eligibility as they normally would. Results are compared daily. Every mismatch gets investigated: was the system wrong, or was the manual check wrong? Edge cases are fixed as they surface.</p>
+      <p>This is zero risk to the practice. Nothing changes about the current process. The new system just runs in parallel to prove it works.</p>
+
       <div class="phase-section-label">Deliverables</div>
       <ul class="phase-list deliverable-list">
-        <li>An accuracy report showing match rate over the testing period</li>
-        <li>Documentation of any edge cases found and how they were resolved</li>
-        <li>A clear recommendation on whether the system is ready for daily use</li>
+        <li>Accuracy report showing match rate over the testing period</li>
+        <li>Documentation of edge cases found and how they were resolved</li>
+        <li>Clear recommendation on whether the system is ready for daily use</li>
       </ul>
     </div>
   </div>
@@ -668,17 +709,11 @@
     <div class="phase-dot">5</div>
     <div class="phase-header">
       <h3>Go Live</h3>
-      <div class="timeline">Weeks 10–12</div>
+      <div class="timeline">3-5 hours</div>
     </div>
     <div class="phase-body">
-      <p>Once the parallel test proves the system is accurate, the team transitions to using it as the primary eligibility check. Staff stops manually verifying patients the system marks as confirmed, and only reviews the ones that are flagged.</p>
-      <div class="phase-section-label">What changes</div>
-      <ul class="phase-list">
-        <li>Green patients: verified automatically, no manual check needed</li>
-        <li>Yellow patients: system found something worth reviewing - staff checks these</li>
-        <li>Red patients: clear problem (lapsed coverage, missing info) - staff takes action</li>
-        <li>Adding real-time checks when new appointments are booked</li>
-      </ul>
+      <p>Once the parallel test proves accuracy, the team transitions to using the system as the primary eligibility check. Green patients are verified automatically with no manual check needed. Yellow patients have something worth reviewing. Red patients have a clear problem (lapsed coverage, missing info) that needs action. Real-time checks are added when new appointments are booked.</p>
+
       <div class="phase-section-label">Deliverables</div>
       <ul class="phase-list deliverable-list">
         <li>Fully operational automated eligibility system</li>
@@ -688,30 +723,51 @@
     </div>
   </div>
 
+  <!-- Infrastructure -->
+  <div class="summary" style="margin-bottom: 40px;">
+    <h2>Estimated Monthly Infrastructure</h2>
+    <p>Based on approximately 350-400 patients per month:</p>
+    <p style="margin-top: 14px;"><strong>Cloud hosting (HIPAA-compliant):</strong> $20-40/month<br>
+    <strong>Eligibility API (based on Stedi pricing):</strong> ~$90-100/month<br>
+    <strong>Estimated total:</strong> $110-140/month</p>
+    <p style="margin-top: 14px;">Final API provider will be selected during Phase 2 after sandbox testing. Multiple options exist with similar pricing models. At this volume the system handles everything on minimal infrastructure. No dedicated servers or expensive platform licenses required.</p>
+  </div>
+
   <!-- Phase 6 -->
   <div class="phase">
     <div class="phase-dot">+</div>
     <div class="phase-header">
       <h3>What Comes Next</h3>
-      <div class="timeline">Month 4 and beyond</div>
+      <div class="timeline">After eligibility is live</div>
     </div>
     <div class="phase-body">
-      <p>Once eligibility is running smoothly, the same infrastructure opens the door to additional automation, each one following the same approach of observe, build, test, adopt.</p>
-      <div class="phase-section-label">Potential next projects</div>
-      <ul class="phase-list">
-        <li>Claim scrubbing: catching common errors before claims are submitted</li>
-        <li>Denial tracking: logging patterns to reduce future denials</li>
-        <li>Pre-authorization document assembly: pulling treatment plans, X-rays, and drafting narratives</li>
-        <li>Claim status monitoring: automated follow-up on unpaid claims</li>
-      </ul>
-      <p style="margin-top: 14px;">Priority should be based on what's creating the most pain after eligibility is handled.</p>
+      <p>Once eligibility is running, the same infrastructure opens the door to additional automation. Each follows the same approach: observe, build, test, adopt. Priority should be based on what is creating the most pain after eligibility is handled.</p>
+
+      <div class="next-projects">
+        <div class="next-project">
+          <div class="next-project-title">Claim Scrubbing</div>
+          <div class="next-project-desc">Catch common errors before claims are submitted to reduce denial rates.</div>
+        </div>
+        <div class="next-project">
+          <div class="next-project-title">Denial Tracking</div>
+          <div class="next-project-desc">Log denials by reason code, carrier, and procedure to identify patterns and prevent repeat issues.</div>
+        </div>
+        <div class="next-project">
+          <div class="next-project-title">Pre-Auth Assembly</div>
+          <div class="next-project-desc">Pull treatment plans and X-rays, then draft clinical narratives for review.</div>
+        </div>
+        <div class="next-project">
+          <div class="next-project-title">Claim Status Monitoring</div>
+          <div class="next-project-desc">Automated follow-up on unpaid claims, surfacing the ones that need human action.</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Approach -->
   <div class="approach">
     <h2>Guiding Principles</h2>
-    <p>This roadmap is built around a core belief: automation should enhance what already works, not replace it. The practice has invested in Eaglesoft and Vyne, sothe right approach adds intelligence on top of those systems. Nothing should be deployed until it's been tested alongside the current process, and staff should always have the final say.</p>
+    <p>This roadmap is built around a core belief: automation should enhance what already works, not replace it. The practice has invested in Eaglesoft and Vyne. The right approach adds intelligence on top of those systems. Nothing should be deployed until it has been tested alongside the current process, and staff should always have the final say.</p>
     <div class="principles">
       <div class="principle">
         <div class="principle-title">Human in the loop</div>
@@ -736,141 +792,119 @@
 </div><!-- /tab-roadmap -->
 
 
-<!-- ═══ TAB 2: ROI CALCULATOR ═══ -->
+<!-- TAB 2: SAVINGS CALCULATOR -->
 <div id="tab-calculator" class="tab-content">
 
 <div class="header">
   <div class="header-inner">
-    <h1>ROI Calculator</h1>
-    <p class="tagline">Plug in the practice's real numbers to see what insurance automation is worth.</p>
+    <h1>Eligibility Calculator</h1>
+    <p class="tagline">See how much time and money automated eligibility verification could save the practice.</p>
   </div>
 </div>
 
 <div class="main">
 
+  <div class="statement-card" style="margin-bottom: 24px;">
+    <div class="statement-label">About this calculator</div>
+    <p>This covers eligibility verification savings only. The eligibility project establishes the technical foundation (Eaglesoft integration, HIPAA-compliant infrastructure, clearinghouse API connections) that claims automation builds directly on top of. The larger savings opportunity comes from claims scrubbing, denial tracking, and pre-authorization, where AI can directly reduce lost revenue. That analysis will follow once eligibility is in place.</p>
+  </div>
+
   <div class="calc-section">
-    <div class="calc-label">Practice Numbers</div>
+    <div class="calc-label">Current Process</div>
     <div class="slider-group">
       <div class="slider-header">
-        <span class="slider-label">Claims per month</span>
-        <span class="slider-value" id="v-claims">400</span>
+        <span class="slider-label">Patients per month</span>
+        <span class="slider-value" id="v-patients">375</span>
       </div>
-      <div class="slider-hint">Total insurance claims submitted monthly</div>
-      <input type="range" id="claims" min="50" max="1500" step="25" value="400" oninput="calc()">
-      <div class="slider-bounds"><span>50</span><span>1,500</span></div>
+      <div class="slider-hint">Total patients requiring eligibility verification</div>
+      <input type="range" id="patients" min="50" max="1000" step="25" value="375" oninput="calc()">
+      <div class="slider-bounds"><span>50</span><span>1,000</span></div>
     </div>
     <div class="slider-group">
       <div class="slider-header">
-        <span class="slider-label">Average claim value</span>
-        <span class="slider-value" id="v-avgclaim">$300</span>
+        <span class="slider-label">Minutes per manual check</span>
+        <span class="slider-value" id="v-mins">8 min</span>
       </div>
-      <div class="slider-hint">Average reimbursement per claim</div>
-      <input type="range" id="avgclaim" min="50" max="800" step="25" value="300" oninput="calc()">
-      <div class="slider-bounds"><span>$50</span><span>$800</span></div>
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">Current denial rate</span>
-        <span class="slider-value" id="v-denial">8%</span>
-      </div>
-      <div class="slider-hint">Industry average is 5–10%</div>
-      <input type="range" id="denial" min="1" max="25" step="0.5" value="8" oninput="calc()">
-      <div class="slider-bounds"><span>1%</span><span>25%</span></div>
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">Hours/day on insurance work</span>
-        <span class="slider-value" id="v-hours">4h</span>
-      </div>
-      <div class="slider-hint">Total staff time: calls, portals, claims, follow-ups</div>
-      <input type="range" id="hours" min="1" max="8" step="0.5" value="4" oninput="calc()">
-      <div class="slider-bounds"><span>1h</span><span>8h</span></div>
+      <div class="slider-hint">Average time to verify one patient manually (portal login, lookup, documentation)</div>
+      <input type="range" id="mins" min="3" max="20" step="1" value="8" oninput="calc()">
+      <div class="slider-bounds"><span>3 min</span><span>20 min</span></div>
     </div>
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Staff hourly rate</span>
         <span class="slider-value" id="v-rate">$22</span>
       </div>
-      <div class="slider-hint">Insurance coordinator loaded rate</div>
+      <div class="slider-hint">Insurance coordinator hourly rate</div>
       <input type="range" id="rate" min="14" max="40" step="1" value="22" oninput="calc()">
       <div class="slider-bounds"><span>$14</span><span>$40</span></div>
     </div>
   </div>
 
   <div class="calc-section">
-    <div class="calc-label">Automation Assumptions</div>
+    <div class="calc-label">Automation</div>
     <div class="slider-group">
       <div class="slider-header">
-        <span class="slider-label">Denial reduction</span>
-        <span class="slider-value" id="v-denred">40%</span>
+        <span class="slider-label">Checks handled automatically</span>
+        <span class="slider-value" id="v-autorate">85%</span>
       </div>
-      <div class="slider-hint">Conservative: 20–30%. Aggressive: 50%+</div>
-      <input type="range" id="denred" min="10" max="70" step="5" value="40" oninput="calc()">
-      <div class="slider-bounds"><span>10%</span><span>70%</span></div>
-    </div>
-    <div class="slider-group">
-      <div class="slider-header">
-        <span class="slider-label">Time reduction</span>
-        <span class="slider-value" id="v-timered">50%</span>
-      </div>
-      <div class="slider-hint">How much manual insurance work gets automated</div>
-      <input type="range" id="timered" min="10" max="70" step="5" value="50" oninput="calc()">
-      <div class="slider-bounds"><span>10%</span><span>70%</span></div>
+      <div class="slider-hint">Percentage of patients verified without manual intervention (remaining get flagged for staff review)</div>
+      <input type="range" id="autorate" min="50" max="95" step="5" value="85" oninput="calc()">
+      <div class="slider-bounds"><span>50%</span><span>95%</span></div>
     </div>
     <div class="slider-group">
       <div class="slider-header">
         <span class="slider-label">Monthly infrastructure cost</span>
-        <span class="slider-value" id="v-infra">$200</span>
+        <span class="slider-value" id="v-infra">$125</span>
       </div>
-      <div class="slider-hint">Cloud hosting, API costs, clearinghouse fees</div>
-      <input type="range" id="infra" min="50" max="500" step="25" value="200" oninput="calc()">
-      <div class="slider-bounds"><span>$50</span><span>$500</span></div>
+      <div class="slider-hint">Cloud hosting + eligibility API (based on current estimates)</div>
+      <input type="range" id="infra" min="50" max="300" step="25" value="125" oninput="calc()">
+      <div class="slider-bounds"><span>$50</span><span>$300</span></div>
     </div>
   </div>
 
   <div class="results-row">
     <div class="result-card accent">
-      <div class="rc-label">Net monthly value</div>
-      <div class="rc-value" id="r-net">—</div>
-      <div class="rc-sub" id="r-annual">—</div>
+      <div class="rc-label">Net monthly savings</div>
+      <div class="rc-value" id="r-net"></div>
+      <div class="rc-sub" id="r-annual"></div>
     </div>
     <div class="result-card neutral">
-      <div class="rc-label">ROI multiple</div>
-      <div class="rc-value" id="r-roi">—</div>
-      <div class="rc-sub" id="r-roi-sub">—</div>
-    </div>
-    <div class="result-card neutral">
-      <div class="rc-label">Hours saved</div>
-      <div class="rc-value" id="r-hours">—</div>
+      <div class="rc-label">Hours reclaimed</div>
+      <div class="rc-value" id="r-hours"></div>
       <div class="rc-sub">Per month of staff time freed up</div>
+    </div>
+    <div class="result-card neutral">
+      <div class="rc-label">Cost per check</div>
+      <div class="rc-value" id="r-cost"></div>
+      <div class="rc-sub" id="r-cost-sub"></div>
     </div>
   </div>
 
   <div class="calc-section">
-    <div class="calc-label">Where the value comes from</div>
+    <div class="calc-label">Breakdown</div>
     <div class="breakdown-row">
-      <span class="br-label">Recovered denied revenue</span>
-      <div class="br-bar-track"><div class="br-bar-fill" id="bar-rev"></div></div>
-      <span class="br-value" id="br-rev">—</span>
+      <span class="br-label">Current monthly labor on eligibility</span>
+      <div class="br-bar-track"><div class="br-bar-fill" id="bar-labor"></div></div>
+      <span class="br-value" id="br-labor"></span>
     </div>
     <div class="breakdown-row">
-      <span class="br-label">Labor time savings</span>
-      <div class="br-bar-track"><div class="br-bar-fill" id="bar-labor"></div></div>
-      <span class="br-value" id="br-labor">—</span>
+      <span class="br-label">Labor saved by automation</span>
+      <div class="br-bar-track"><div class="br-bar-fill" id="bar-saved"></div></div>
+      <span class="br-value" id="br-saved"></span>
     </div>
     <div class="breakdown-row" style="border-bottom:none">
       <span class="br-label">Infrastructure cost</span>
       <div class="br-bar-track"><div class="br-bar-fill" id="bar-cost"></div></div>
-      <span class="br-value" id="br-cost">—</span>
+      <span class="br-value" id="br-cost"></span>
     </div>
     <div class="net-row">
-      <span class="net-label">Monthly net</span>
-      <span class="net-value" id="net-total">—</span>
+      <span class="net-label">Monthly net savings</span>
+      <span class="net-value" id="net-total"></span>
     </div>
   </div>
 
   <div class="pitch-box">
-    <strong>The case in one sentence:</strong>
+    <strong>Based on your current selections:</strong>
     <span id="pitch-text"></span>
   </div>
 
@@ -883,70 +917,61 @@
 
 <script>
   function switchTab(tab) {
-    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(function(el) { el.classList.remove('active'); });
+    document.querySelectorAll('.nav-tab').forEach(function(el) { el.classList.remove('active'); });
     document.getElementById('tab-' + tab).classList.add('active');
     document.querySelector('[onclick="switchTab(\'' + tab + '\')"]').classList.add('active');
     window.scrollTo(0, 0);
   }
 
-  const $ = (id) => document.getElementById(id);
-  const fmt = (n) => n.toLocaleString('en-US', { maximumFractionDigits: 0 });
-  const fmtD = (n) => '$' + fmt(n);
+  var $ = function(id) { return document.getElementById(id); };
+  var fmt = function(n) { return n.toLocaleString('en-US', { maximumFractionDigits: 0 }); };
+  var fmtD = function(n) { return '$' + fmt(n); };
 
   function calc() {
-    const claims   = +$('claims').value;
-    const avgclaim = +$('avgclaim').value;
-    const denial   = +$('denial').value;
-    const hours    = +$('hours').value;
-    const rate     = +$('rate').value;
-    const denred   = +$('denred').value;
-    const timered  = +$('timered').value;
-    const infra    = +$('infra').value;
-    const days     = 21;
+    var patients  = +$('patients').value;
+    var mins      = +$('mins').value;
+    var rate      = +$('rate').value;
+    var autorate  = +$('autorate').value;
+    var infra     = +$('infra').value;
 
-    $('v-claims').textContent  = fmt(claims);
-    $('v-avgclaim').textContent = fmtD(avgclaim);
-    $('v-denial').textContent  = denial + '%';
-    $('v-hours').textContent   = hours + 'h';
-    $('v-rate').textContent    = fmtD(rate);
-    $('v-denred').textContent  = denred + '%';
-    $('v-timered').textContent = timered + '%';
-    $('v-infra').textContent   = fmtD(infra);
+    $('v-patients').textContent = fmt(patients);
+    $('v-mins').textContent     = mins + ' min';
+    $('v-rate').textContent     = fmtD(rate);
+    $('v-autorate').textContent = autorate + '%';
+    $('v-infra').textContent    = fmtD(infra);
 
-    const monthlyDeniedRev = claims * (denial / 100) * avgclaim;
-    const recoveredRev     = monthlyDeniedRev * (denred / 100);
-    const monthlyLabor     = hours * rate * days;
-    const laborSaved       = monthlyLabor * (timered / 100);
-    const hoursSaved       = hours * days * (timered / 100);
-    const totalValue       = recoveredRev + laborSaved;
-    const netMonthly       = totalValue - infra;
-    const annualNet        = netMonthly * 12;
-    const roiX             = infra > 0 ? totalValue / infra : 0;
-    const maxBar           = Math.max(recoveredRev, laborSaved, 1);
+    var totalHoursNow    = (patients * mins) / 60;
+    var monthlyLaborNow  = totalHoursNow * rate;
+    var hoursSaved       = totalHoursNow * (autorate / 100);
+    var laborSaved       = monthlyLaborNow * (autorate / 100);
+    var netSavings       = laborSaved - infra;
+    var annualNet        = netSavings * 12;
+    var costPerCheck     = patients > 0 ? infra / patients : 0;
+    var manualCostPerCheck = mins > 0 ? (mins / 60) * rate : 0;
+    var maxBar           = Math.max(monthlyLaborNow, laborSaved, 1);
 
-    $('r-net').textContent     = fmtD(netMonthly);
-    $('r-annual').textContent  = fmtD(annualNet) + '/year after costs';
-    $('r-roi').textContent     = roiX.toFixed(1) + 'x';
-    $('r-roi-sub').textContent = 'Every $1 spent returns ' + fmtD(roiX);
+    $('r-net').textContent     = fmtD(netSavings);
+    $('r-annual').textContent  = fmtD(annualNet) + '/year';
     $('r-hours').textContent   = fmt(hoursSaved) + 'h';
+    $('r-cost').textContent    = '$' + costPerCheck.toFixed(2);
+    $('r-cost-sub').textContent = 'vs $' + manualCostPerCheck.toFixed(2) + ' manual';
 
-    $('br-rev').textContent   = fmtD(recoveredRev) + '/mo';
-    $('br-labor').textContent = fmtD(laborSaved) + '/mo';
-    $('br-cost').textContent  = '\u2212' + fmtD(infra) + '/mo';
+    $('br-labor').textContent = fmtD(monthlyLaborNow) + '/mo';
+    $('br-saved').textContent = fmtD(laborSaved) + '/mo';
+    $('br-cost').textContent  = '-' + fmtD(infra) + '/mo';
 
-    $('bar-rev').style.width   = (recoveredRev / maxBar * 100) + '%';
-    $('bar-labor').style.width = (laborSaved / maxBar * 100) + '%';
-    $('bar-cost').style.width  = (infra / maxBar * 100) + '%';
+    $('bar-labor').style.width = '100%';
+    $('bar-saved').style.width = (laborSaved / monthlyLaborNow * 100) + '%';
+    $('bar-cost').style.width  = (infra / monthlyLaborNow * 100) + '%';
 
-    $('net-total').textContent = fmtD(netMonthly);
-    $('net-total').style.color = netMonthly >= 0 ? 'var(--teal)' : 'var(--negative)';
+    $('net-total').textContent = fmtD(netSavings);
+    $('net-total').style.color = netSavings >= 0 ? 'var(--teal)' : 'var(--negative)';
 
     $('pitch-text').textContent =
-      'The practice loses roughly ' + fmtD(monthlyDeniedRev) + '/month in denied claims ' +
-      'and spends ' + fmtD(monthlyLabor) + '/month in staff time on insurance work. ' +
-      'Automation could cut those by ' + denred + '% and ' + timered + '% respectively for ' + fmtD(infra) + '/month ' +
-      'in operating costs \u2014 a net gain of ' + fmtD(netMonthly) + ' every month.';
+      'The practice currently spends roughly ' + fmt(Math.round(totalHoursNow)) + ' hours and ' + fmtD(monthlyLaborNow) +
+      ' per month on manual eligibility checks. Automating ' + autorate + '% of those checks saves ' +
+      fmt(Math.round(hoursSaved)) + ' staff hours and ' + fmtD(netSavings) + '/month after infrastructure costs.';
   }
 
   calc();
